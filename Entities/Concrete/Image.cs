@@ -9,6 +9,7 @@ namespace Entities.Concrete
     public class Image:EntityBase
     {
         public Guid? ProductId { get; set; }
+        public string ImageName { get; set; }
         public string ImagePath { get; set; }
 
         public Product Product { get; set; }
