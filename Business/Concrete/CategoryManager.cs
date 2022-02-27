@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -19,6 +20,15 @@ namespace Business.Concrete
             _categoryDal = categoryDal;
         }
 
+        public IResult Add(Category category)
+        {
+            category.Id=Guid.NewGuid();
+            _categoryDal.Add(category);
+
+            return new SuccessResult(Messages.CategoryAdded);
+
+        }
+
         public IDataResult<List<Category>> GetAll()
         {
             return new SuccessDataResult<List<Category>>(_categoryDal.GetAll());
@@ -27,6 +37,11 @@ namespace Business.Concrete
         public IDataResult<Category> GetById(Guid categoryId)
         {
             return new SuccessDataResult<Category>(_categoryDal.Get(item=>item.Id==categoryId));
+        }
+
+        public IResult Update(Category category)
+        {
+            throw new NotImplementedException();
         }
     }
 }

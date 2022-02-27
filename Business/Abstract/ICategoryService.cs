@@ -9,6 +9,8 @@ namespace Business.Abstract
     {
         IDataResult<List<Category>> GetAll();
         IDataResult<Category> GetById(Guid categoryId);
+        IResult Add(Category category);
+        IResult Update(Category category);
 
     }
 }
