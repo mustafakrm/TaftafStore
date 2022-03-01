@@ -15,6 +15,7 @@ namespace Business.Concrete
     {
 
         ICategoryDal _categoryDal;
+        Category _category = new Category();
         public CategoryManager(ICategoryDal categoryDal)
         {
             _categoryDal = categoryDal;
@@ -41,7 +42,18 @@ namespace Business.Concrete
 
         public IResult Update(Category category)
         {
-            throw new NotImplementedException();
+            _categoryDal.Update(category);
+            return new SuccessResult(Messages.CategoryUpdated);
+
         }
+        public IResult Delete(Category category)
+        {
+            category.IsDeleted = true;
+            _categoryDal.Update(category);
+            return new SuccessResult(Messages.CategoryDeleted);
+
+        }
+
+
     }
 }
