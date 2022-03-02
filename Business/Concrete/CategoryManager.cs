@@ -15,7 +15,6 @@ namespace Business.Concrete
     {
 
         ICategoryDal _categoryDal;
-        Category _category = new Category();
         public CategoryManager(ICategoryDal categoryDal)
         {
             _categoryDal = categoryDal;

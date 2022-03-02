@@ -18,6 +18,8 @@ namespace Business.Constants
         public static string SubCategoryNameInvalid = "Alt Kategori ismi geçersiz!";
         public static string SubCategoryListed = "Alt Kategoriler Listelendi!!";
         public static string SubCategoryUpdated = "Alt Kategori Güncellendi!!";
+        public static string SubCategoryDeleted = "Alt Kategori Silindi!!";
+
 
         public static string ProductAdded = "Ürün Eklendi!";
         public static string ProductNameInvalid = "Ürün ismi geçersiz!";

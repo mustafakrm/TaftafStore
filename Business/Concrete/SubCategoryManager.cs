@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -17,6 +18,22 @@ namespace Business.Concrete
         {
             _subCategoryDal = subCategoryDal;
         }
+
+        public IResult Add(SubCategory subCategory)
+        {
+            subCategory.Id = Guid.NewGuid();
+            _subCategoryDal.Add(subCategory);
+
+            return new SuccessResult(Messages.SubCategoryAdded);
+        }
+
+        public IResult Delete(SubCategory subCategory)
+        {
+            subCategory.IsDeleted = true;
+            _subCategoryDal.Update(subCategory);
+            return new SuccessResult(Messages.SubCategoryDeleted);
+        }
+
         public IDataResult<List<SubCategory>> GetAll()
         {
             return new SuccessDataResult<List<SubCategory>>(_subCategoryDal.GetAll());
@@ -25,6 +42,12 @@ namespace Business.Concrete
         public IDataResult<SubCategory> GetById(Guid subCategoryId)
         {
             return new SuccessDataResult<SubCategory>(_subCategoryDal.Get(item => item.Id == subCategoryId));
+        }
+
+        public IResult Update(SubCategory subCategory)
+        {
+            _subCategoryDal.Update(subCategory);
+            return new SuccessResult(Messages.SubCategoryUpdated);
         }
     }
 }

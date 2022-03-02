@@ -12,6 +12,9 @@ namespace Business.Abstract
     {
         IDataResult<List<SubCategory>> GetAll();
         IDataResult<SubCategory> GetById(Guid subCategoryId);
+        IResult Add(SubCategory subCategory);
+        IResult Update(SubCategory subCategory);
+        IResult Delete(SubCategory subCategory);
 
     }
 }
