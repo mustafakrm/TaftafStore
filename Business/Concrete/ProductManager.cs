@@ -28,11 +28,12 @@ namespace Business.Concrete
             _subCategoryService = subCategoryService;
         }
 
-        [SecuredOperation("product.add,admin")]
-        [ValidationAspect(typeof(ProductValidator))]
-        [CacheRemoveAspect("IProductService.Get")]
+        //[SecuredOperation("product.add,admin")]
+        //[ValidationAspect(typeof(ProductValidator))]
+        //[CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Product product)
         {
+            product.AddedDate = DateTime.Now;
             IResult result = BusinessRules.Run(
                 CheckIfProductCountOfSubCategoryCorrect(product.SubCategoryId),
                 CheckIfProductNameExists(product.ProductName),
@@ -51,7 +52,7 @@ namespace Business.Concrete
 
         }
 
-        [CacheAspect] // key,value
+        //[CacheAspect] // key,value
         public IDataResult<List<Product>> GetAll()
         {
             
@@ -70,7 +71,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(item => item.SalePrice >= min && item.SalePrice <= max));
         }
-        [CacheAspect]
+        //[CacheAspect]
         public IDataResult<Product> GetById(Guid id)
         {
             return new SuccessDataResult<Product>(_productDal.Get(item => item.Id == id));
@@ -84,8 +85,8 @@ namespace Business.Concrete
             return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails());
         }
 
-        [ValidationAspect(typeof(ProductValidator))]
-        [CacheRemoveAspect("IProductService.Get")]
+        //[ValidationAspect(typeof(ProductValidator))]
+        //[CacheRemoveAspect("IProductService.Get")]
         public IResult Update(Product product)
         {
             _productDal.Update(product);
