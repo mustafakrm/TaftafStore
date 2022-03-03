@@ -9,11 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entiti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities.Mappings", "Entities.Mappings\Entities.Mappings.csproj", "{BA7CADAB-6495-434B-969D-B5B809939C9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{FD3BE705-CDBD-4F2F-9963-670CC92282ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{FD3BE705-CDBD-4F2F-9963-670CC92282ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{972278F8-15A5-435A-99C4-2BEE34C518A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{972278F8-15A5-435A-99C4-2BEE34C518A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{8778614D-A117-4E8A-9E0E-33653B8CB272}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{8778614D-A117-4E8A-9E0E-33653B8CB272}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPPCoreMvcUI", "WebAPPCoreMvcUI\WebAPPCoreMvcUI.csproj", "{74802DD4-579F-4455-A75B-4866D36F74D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{8778614D-A117-4E8A-9E0E-33653B8CB272}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8778614D-A117-4E8A-9E0E-33653B8CB272}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8778614D-A117-4E8A-9E0E-33653B8CB272}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74802DD4-579F-4455-A75B-4866D36F74D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74802DD4-579F-4455-A75B-4866D36F74D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74802DD4-579F-4455-A75B-4866D36F74D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74802DD4-579F-4455-A75B-4866D36F74D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
