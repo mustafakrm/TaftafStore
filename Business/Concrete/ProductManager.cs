@@ -88,9 +88,15 @@ namespace Business.Concrete
         [CacheRemoveAspect("IProductService.Get")]
         public IResult Update(Product product)
         {
-            throw new NotImplementedException();
+            _productDal.Update(product);
+            return new SuccessResult(Messages.ProductUpdated);
         }
-
+        public IResult Delete(Product product)
+        {
+            product.IsDeleted = true;
+            _productDal.Update(product);
+            return new SuccessResult(Messages.ProductUpdated);
+        }
         public IResult AddTransactionalTest(Product product)
         {
             throw new NotImplementedException();
