@@ -3,7 +3,7 @@ using Entities.Concrete;
 
 namespace DataAccess.Abstract
 {
-    public interface ISubCategoryDal : IEntityRepository<SubCategory>
+    public interface IImageDal : IEntityRepository<Image>
     {
     }
 }

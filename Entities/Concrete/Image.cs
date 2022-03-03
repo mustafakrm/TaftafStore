@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Concrete
 {
-    public class Image:EntityBase
+    public class Image : EntityBase
     {
         public Guid? ProductId { get; set; }
         public string ImageName { get; set; }

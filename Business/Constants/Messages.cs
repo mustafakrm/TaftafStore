@@ -31,6 +31,11 @@ namespace Business.Constants
         public static string ProductNameAlreadyExists = "Aynı isimde zaten başka bi ürün var!!";
         public static string CategoryLimitExceded = "Kategori limiti aşıldığı için yeni ürün eklenemiyor";
 
+        public static string ImageAdded = "Ürün Resimleri Eklendi!";
+        public static string ImageNameInvalid = "Ürün Resim ismi geçersiz!";
+        public static string ImageListed = "Ürün Resimleri Listelendi!!";
+        public static string ImageUpdated = "Ürün Resimleri Güncellendi!!";
+        public static string ImageDeleted = "Ürün Resimleri Silindi!!";
 
         public static string AuthorizationDenied = "Yetkiniz yok!!";
         public static string UserNotFound = "Kullanıcı bulunamadı";
