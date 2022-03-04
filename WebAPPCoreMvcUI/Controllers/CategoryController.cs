@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.Utilities.Results;
+using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -17,9 +18,15 @@ namespace WebAPPCoreMvcUI.Controllers
             _httpClient=httpClient;
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetAllCategories()
         {
             var categories = await _httpClient.GetFromJsonAsync<List<Category>>(url + "Categories/getAll");
+            if (categories!=null)
+            {
+               
+            }
+           
             return View(categories);
         }
     }
