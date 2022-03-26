@@ -67,6 +67,11 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(item => item.SubCategoryId == id));
         }
+
+        public IDataResult<List<Product>> GetAllByCategoryId(Guid id)
+        {
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(item => item.SubCategory.CategoryId == id));
+        }
         public IDataResult<List<Product>> GetAllByPrice(decimal min, decimal max)
         {
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(item => item.SalePrice >= min && item.SalePrice <= max));
@@ -134,5 +139,6 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+       
     }
 }

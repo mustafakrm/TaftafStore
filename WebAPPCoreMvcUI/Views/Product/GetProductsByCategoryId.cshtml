@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Entities.Concrete.Product>
+
+    <div class="section">
+    <div class="container">
+        <ul>
+             
+            @foreach (var item in Model)
+            {
+                <li>@item.ProductName</li>
+            }
+        </ul>
+    </div>
+</div>

@@ -41,12 +41,22 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getBySubCategoryId")]
-        public IActionResult GetByCategoryId(Guid subCategoryId)
+        public IActionResult GetBySubCategoryId(Guid subCategoryId)
         {
             var result = _productService.GetAllBySubCategoryId(subCategoryId);
             if (result.Success)
             {
                 return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getByCategoryId")]
+        public IActionResult GetByCategoryId(Guid categoryId)
+        {
+            var result = _productService.GetAllByCategoryId(categoryId);
+            if (result.Success)
+            {
+                return Ok(result.Data);
             }
             return BadRequest(result);
         }

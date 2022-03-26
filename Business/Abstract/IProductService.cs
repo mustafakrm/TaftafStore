@@ -13,6 +13,7 @@ namespace Business.Abstract
     {
         IDataResult<List<Product>> GetAll();
         IDataResult<List<Product>> GetAllBySubCategoryId(Guid id);
+        IDataResult<List<Product>> GetAllByCategoryId(Guid id);
         IDataResult<List<Product>> GetAllByPrice(decimal min, decimal max);
         IDataResult<List<ProductDetailDto>> GetProductDetails();
         IDataResult<Product> GetById(Guid id);
