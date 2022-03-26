@@ -21,13 +21,11 @@ namespace WebAPPCoreMvcUI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllCategories()
         {
-            var categories = await _httpClient.GetFromJsonAsync<List<Category>>(url + "Categories/getAll");
-            if (categories!=null)
-            {
-               
-            }
-           
-            return View(categories);
+            var categories = await _httpClient.
+                GetFromJsonAsync<List<Category>>(url + "Categories/getAll");
+
+            //return View(categories);
+            return PartialView("_CategoriesList", categories);
         }
     }
 }

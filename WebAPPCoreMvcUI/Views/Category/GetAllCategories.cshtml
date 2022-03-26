@@ -1,7 +1,11 @@
 ﻿@model IEnumerable<Entities.Concrete.Category>
-<ul>
-    @foreach (var item in Model)
-    {
-        <li>@item.CategoryName</li>
-    }
-</ul>
+<div class="section">
+    <div class="container">
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>@item.CategoryName</li>
+            }
+        </ul>
+    </div>
+</div>
