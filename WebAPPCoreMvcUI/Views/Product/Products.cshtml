@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Entities.Concrete.Product>
+
+    @foreach (var item in Model)
+   {
+       <ul>
+           <li>@item.ProductName</li>
+       </ul>
+   }

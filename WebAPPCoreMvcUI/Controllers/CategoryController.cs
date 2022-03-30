@@ -24,8 +24,8 @@ namespace WebAPPCoreMvcUI.Controllers
             var categories = await _httpClient.
                 GetFromJsonAsync<List<Category>>(url + "Categories/getAll");
 
-            //return View(categories);
-            return PartialView("_CategoriesList", categories);
+            return View(categories);
+            //return PartialView("_CategoriesList", categories);
         }
     }
 }

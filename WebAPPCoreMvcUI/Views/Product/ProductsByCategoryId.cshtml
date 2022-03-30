@@ -1,9 +1,13 @@
 ﻿@model IEnumerable<Entities.Concrete.Product>
+@{
+    ViewData["Title"] = "ProductsByCategoryId";
+}
 
-    <div class="section">
+<h1>ProductsByCategoryId</h1>
+
+<div class="section">
     <div class="container">
         <ul>
-             
             @foreach (var item in Model)
             {
                 <li>@item.ProductName</li>

@@ -50,6 +50,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
         [HttpGet("getByCategoryId")]
         public IActionResult GetByCategoryId(Guid categoryId)
         {
