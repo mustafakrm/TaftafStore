@@ -21,7 +21,7 @@ namespace WebAPPCoreMvcUI.Controllers
         {
             var products = await _httpClient.GetFromJsonAsync<List<Product>>(url + "Products/GetByCategoryId?categoryId=" + id);
             
-            return View("Products",products);
+            return View(products);
         }
     }
 }

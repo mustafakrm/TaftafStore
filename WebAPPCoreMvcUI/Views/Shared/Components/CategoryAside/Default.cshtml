@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Entities.Concrete.Category>
+@foreach (var item in Model)
+{
+    <div class="input-checkbox">
+        <input type="checkbox" id="category-1">
+        <label for="category-1">
+            <span></span>
+            @item.CategoryName
+            <small>(120)</small>
+        </label>
+    </div>
+}

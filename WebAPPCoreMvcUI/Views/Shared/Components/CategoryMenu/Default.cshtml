@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Entities.Concrete.Category>
 @foreach (var item in Model)
 {
-    <li><a >@item.CategoryName</a>
-       @Html.ActionLink("boş iş","GetProductsByCategoryId","Product",new {id=@item.Id})
+    <li><a href="/Product/ProductsByCategoryId/@item.Id">@item.CategoryName </a>
+      
     </li>
 }
