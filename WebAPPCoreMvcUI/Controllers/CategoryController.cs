@@ -27,5 +27,11 @@ namespace WebAPPCoreMvcUI.Controllers
             return View(categories);
             //return PartialView("_CategoriesList", categories);
         }
+
+        [HttpGet]
+        public IActionResult AddCategory()
+        {
+            return View();
+        }
     }
 }
