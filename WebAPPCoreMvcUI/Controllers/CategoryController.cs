@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using WebAPPCoreMvcUI.Models.CategoryViewModel;
 
 namespace WebAPPCoreMvcUI.Controllers
 {
@@ -31,6 +32,16 @@ namespace WebAPPCoreMvcUI.Controllers
         [HttpGet]
         public IActionResult AddCategory()
         {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddCategory(Category category)
+        {
+            HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Categories/Add", category);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
     }
