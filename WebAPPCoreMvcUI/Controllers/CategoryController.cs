@@ -1,6 +1,7 @@
 ﻿using Core.Utilities.Results;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -38,6 +39,32 @@ namespace WebAPPCoreMvcUI.Controllers
         public async Task<IActionResult> AddCategory(Category category)
         {
             HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Categories/Add", category);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateCategory(Guid id)
+        {
+            var category= await _httpClient.GetFromJsonAsync<Category>(url + "Categories/getById?categoryId=" + id);
+
+            Category cat = new Category()
+            {
+                Id = category.Id,
+                CategoryName = category.CategoryName,
+                IsDeleted = category.IsDeleted
+            };            
+
+            return View(cat);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateCategory(Category category)
+        { 
+
+            HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Categories/Update", category);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index", "Home");
