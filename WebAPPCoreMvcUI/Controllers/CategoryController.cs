@@ -71,5 +71,29 @@ namespace WebAPPCoreMvcUI.Controllers
             }
             return View();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteCategory(Guid id)
+        {
+            var category = await _httpClient.GetFromJsonAsync<Category>(url + "Categories/getById?categoryId=" + id);
+            Category cat = new Category()
+            {
+                Id = category.Id,
+                CategoryName = category.CategoryName,
+                IsDeleted = category.IsDeleted
+            };
+            return View(cat);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteCategory(Category category)
+        {
+            HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync("Categories/Delete", category);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index","Home");
+            }
+            return View();
+        }
     }
 }
