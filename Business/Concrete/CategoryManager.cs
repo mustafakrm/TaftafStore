@@ -53,6 +53,5 @@ namespace Business.Concrete
 
         }
 
-
     }
 }

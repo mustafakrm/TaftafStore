@@ -13,6 +13,7 @@ namespace Entities.Mappings
     {
         public void Configure(EntityTypeBuilder<Image> builder)
         {
+
             builder.ToTable("Images");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.ImageName).HasMaxLength(2000).HasColumnType("varchar").IsRequired();

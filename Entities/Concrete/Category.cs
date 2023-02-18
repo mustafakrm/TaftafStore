@@ -9,7 +9,6 @@ namespace Entities.Concrete
     public class Category:EntityBase
     {
         public string CategoryName { get; set; }
-
         public ICollection<SubCategory> SubCategories { get; set; }
     }
 }

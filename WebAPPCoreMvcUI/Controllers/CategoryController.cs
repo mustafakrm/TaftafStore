@@ -88,7 +88,7 @@ namespace WebAPPCoreMvcUI.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteCategory(Category category)
         {
-            HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync("Categories/Delete", category);
+            HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url+"Categories/Delete", category);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index","Home");
