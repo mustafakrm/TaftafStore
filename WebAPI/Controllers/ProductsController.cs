@@ -22,11 +22,11 @@ namespace WebAPI.Controllers
         [HttpGet("getAll")]
         public IActionResult GetAll()
         {
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
             var result = _productService.GetAll();
             if (result.Success)
             {
-                return Ok(result);
+                return Ok(result.Data);
             }
             return BadRequest(result);
         }

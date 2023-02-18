@@ -17,6 +17,30 @@ namespace WebAPPCoreMvcUI.Controllers
             _httpClient=httpClient;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllProducts()
+        {
+            var products=await _httpClient.GetFromJsonAsync<List<Product>>(url+"Products/getAll");
+            return View(products);
+        }
+
+        [HttpGet]
+        public  IActionResult AddProduct()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddProduct(Product product)
+        {
+            HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Products/add", product);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("GetAllProducts", "Product");
+            }
+            return View();
+        }
+
+        [HttpGet]
         public async Task<IActionResult> ProductsByCategoryId(Guid id)
         {
             var products = await _httpClient.GetFromJsonAsync<List<Product>>(url + "Products/GetByCategoryId?categoryId=" + id);
