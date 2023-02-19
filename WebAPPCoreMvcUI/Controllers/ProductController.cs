@@ -25,6 +25,14 @@ namespace WebAPPCoreMvcUI.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> ProductsByCategoryId(Guid id)
+        {
+            var products = await _httpClient.GetFromJsonAsync<List<Product>>(url + "Products/GetByCategoryId?categoryId=" + id);
+
+            return View(products);
+        }
+
+        [HttpGet]
         public  IActionResult AddProduct()
         {
             return View();
@@ -41,11 +49,65 @@ namespace WebAPPCoreMvcUI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ProductsByCategoryId(Guid id)
+        public async Task<IActionResult> UpdateProduct(Guid id)
         {
-            var products = await _httpClient.GetFromJsonAsync<List<Product>>(url + "Products/GetByCategoryId?categoryId=" + id);
-            
-            return View(products);
+            var product = await _httpClient.GetFromJsonAsync<Product>(url + "Products/getById?productId=" + id);
+            Product productToUpdate = new Product()
+            {
+                Id = product.Id,
+                ProductName = product.ProductName,
+                Description=product.Description,
+                PurchasePrice = product.PurchasePrice,
+                SalePrice = product.SalePrice,
+                DiscountPrice = product.DiscountPrice,
+                AddedDate = product.AddedDate,
+                UnitsInstock = product.UnitsInstock,
+                SubCategoryId = product.SubCategoryId,
+                IsDeleted = product.IsDeleted
+            };
+            return View(productToUpdate);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult>UpdateProduct(Product product)
+        {
+            HttpResponseMessage responseMessage= await _httpClient.PostAsJsonAsync<Product>(url +"Products/Update",product);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("GetAllProducts", "Product");
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteProduct(Guid id)
+        {
+            var product=await _httpClient.GetFromJsonAsync<Product>(url +"Products/getById?productId="+id);
+
+            Product productToDelete = new Product()
+            {
+                Id = product.Id,
+                ProductName = product.ProductName,
+                Description = product.Description,
+                PurchasePrice = product.PurchasePrice,
+                SalePrice = product.SalePrice,
+                DiscountPrice = product.DiscountPrice,
+                AddedDate = product.AddedDate,
+                UnitsInstock = product.UnitsInstock,
+                SubCategoryId = product.SubCategoryId,
+                IsDeleted = product.IsDeleted
+            };
+            return View(productToDelete);
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteProduct(Product product)
+        {
+            HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync<Product>(url + "Products/Delete", product);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("GetAllProducts", "Product");
+            }
+            return View();
         }
     }
 }
