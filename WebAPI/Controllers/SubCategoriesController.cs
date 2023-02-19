@@ -24,7 +24,7 @@ namespace WebAPI.Controllers
             var result = _subCategoryService.GetAll();
             if (result.Success)
             {
-                return Ok(result);
+                return Ok(result.Data);
             }
             return BadRequest(result);
         }
@@ -34,7 +34,7 @@ namespace WebAPI.Controllers
             var result = _subCategoryService.GetById(subCategoryId);
             if (result.Success)
             {
-                return Ok(result);
+                return Ok(result.Data);
             }
             return BadRequest(result);
         }
