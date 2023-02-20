@@ -1,11 +1,45 @@
 ﻿@model IEnumerable<Entities.Concrete.Category>
 <div class="section">
     <div class="container">
-        <ul>
-            @foreach (var item in Model)
-            {
-                <li>@item.CategoryName</li>
-            }
-        </ul>
+         <p>
+            <a asp-action="AddCategory">Create New Category</a>
+         </p>
+         <table class="table">
+             <thead>
+                <tr>
+                   <th>
+                       @Html.DisplayNameFor(model => model.CategoryName)
+                   </th>           
+                   <th>
+                       @Html.DisplayNameFor(model => model.Id)
+                   </th>                   
+                   <th>
+                       @Html.DisplayNameFor(model => model.IsDeleted)
+                  </th>
+            
+                </tr>
+             </thead>
+             <tbody>
+                  @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                           @Html.DisplayFor(modelItem => item.CategoryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem=> item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem=> item.IsDeleted)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "UpdateCategory", new { id=item.Id }) |
+                            @Html.ActionLink("Delete", "DeleteCategory", new { id=item.Id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+         </table>
+       
     </div>
 </div>
