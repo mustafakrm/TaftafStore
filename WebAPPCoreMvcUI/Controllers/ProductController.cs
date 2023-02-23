@@ -1,5 +1,7 @@
 ﻿using Entities.Concrete;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -12,10 +14,13 @@ namespace WebAPPCoreMvcUI.Controllers
     {
         private readonly HttpClient _httpClient;
         private string url = "https://localhost:44304/api/";
-        public ProductController(HttpClient httpClient)
+        private readonly IWebHostEnvironment _hostEnvironment;
+        public ProductController(HttpClient httpClient,IWebHostEnvironment hostEnvironment)
         {
             _httpClient=httpClient;
+            _hostEnvironment=hostEnvironment;
         }
+       
 
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
@@ -33,8 +38,12 @@ namespace WebAPPCoreMvcUI.Controllers
         }
 
         [HttpGet]
-        public  IActionResult AddProduct()
+        public async Task<IActionResult> AddProduct()
         {
+            var subCategList = await _httpClient.
+               GetFromJsonAsync<List<SubCategory>>(url + "SubCategories/getAll");
+
+            ViewBag.SubCategoriesList = new SelectList(subCategList, "Id", "SubCategoryName");
             return View();
         }
         [HttpPost]
@@ -65,6 +74,10 @@ namespace WebAPPCoreMvcUI.Controllers
                 SubCategoryId = product.SubCategoryId,
                 IsDeleted = product.IsDeleted
             };
+            var subCategList = await _httpClient.
+              GetFromJsonAsync<List<SubCategory>>(url + "SubCategories/getAll");
+
+            ViewBag.SubCategoriesList = new SelectList(subCategList, "Id", "SubCategoryName");
             return View(productToUpdate);
         }
         
