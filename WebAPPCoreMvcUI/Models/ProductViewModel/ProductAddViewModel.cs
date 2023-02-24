@@ -1,4 +1,5 @@
 ﻿using Entities.Concrete;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 
@@ -13,8 +14,11 @@ namespace WebAPPCoreMvcUI.Models.ProductViewModel
         public decimal DiscountPrice { get; set; }
         public DateTime? AddedDate { get; set; }
         public int? UnitsInstock { get; set; }
+        public bool IsDeleted { get; set; }
         public Guid SubCategoryId { get; set; }
         public string SubCategoryName { get; set; }
-        public IEnumerable<Image> Images { get; set; }
+        public ICollection<IFormFile> Files { get; set; }
+        public List<Image> Images { get; set; }
+
     }
 }

@@ -1,9 +1,11 @@
 ﻿using Entities.Concrete;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -37,7 +39,52 @@ namespace WebAPPCoreMvcUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductAddViewModel productAddViewModel)
         {
+
+            if (ModelState.IsValid)
+            {
+                if (productAddViewModel.Files!=null)
+                {
+                    Product productToAdd = new Product()
+                    {
+                      
+                        ProductName = productAddViewModel.ProductName,
+                        Description = productAddViewModel.Description,
+                        PurchasePrice = productAddViewModel.PurchasePrice,
+                        SalePrice = productAddViewModel.SalePrice,
+                        DiscountPrice = productAddViewModel.DiscountPrice,
+                        AddedDate = productAddViewModel.AddedDate,
+                        UnitsInstock = productAddViewModel.UnitsInstock,
+                        SubCategoryId = productAddViewModel.SubCategoryId,
+                        IsDeleted = productAddViewModel.IsDeleted
+                        
+                    };
+                    string folder = "Images/ProductImages/";
+                    productToAdd.Images = new List<Image>();
+                    foreach (var item in productAddViewModel.Files)
+                    {
+                        productToAdd.Images.Add(new Image()
+                        {
+                            ImageName = item.FileName,
+                            ImagePath = await UploadImage(folder, item)
+                        });
+                    }
+
+                    HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Products/add", productToAdd);
+                    if (responseMessage.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction("GetAllProducts", "Product");
+                    }
+
+                }
+            }
             return View();
+        }
+        private async Task<string> UploadImage(string folderPath,IFormFile formFile)
+        {
+            folderPath+= Guid.NewGuid().ToString() + "_" + formFile.FileName;
+            string serverFolder = Path.Combine(_hostEnvironment.WebRootPath, folderPath);
+            await formFile.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+            return "/" + folderPath;
         }
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
