@@ -1,13 +1,13 @@
-﻿@model Entities.Concrete.Product
+﻿@model WebAPPCoreMvcUI.Models.ProductViewModel.ProductAddViewModel
+
 
 <div class="container">
-    <h4>Product</h4>
-<hr />
-<div class="row">
-    <div class="col-md-12">
-        <form asp-action="UpdateProduct">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="col-md-6">
+    <h4>ProductAddViewModel</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="ProductName" class="control-label"></label>
                     <input asp-for="ProductName" class="form-control" />
@@ -33,45 +33,38 @@
                     <input asp-for="DiscountPrice" class="form-control" />
                     <span asp-validation-for="DiscountPrice" class="text-danger"></span>
                 </div>
-            </div>
-            <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="AddedDate" class="control-label"></label>
                     <input asp-for="AddedDate" class="form-control" />
                     <span asp-validation-for="AddedDate" class="text-danger"></span>
                 </div>
-                 <div class="form-group">
-                     <label asp-for="UnitsInstock" class="control-label"></label>
-                     <input asp-for="UnitsInstock" class="form-control" />
-                     <span asp-validation-for="UnitsInstock" class="text-danger"></span>
-                 </div>
-                 <div class="form-group">               
-                      @Html.DropDownListFor(m=>m.SubCategoryId,
-                          ViewBag.SubCategoriesList as SelectList, new {@class="form-control"})
-                 </div>
-                 <div class="form-group">
-                     <label asp-for="Id" class="control-label"></label>
-                     <input asp-for="Id" class="form-control" />
-                     <span asp-validation-for="Id" class="text-danger"></span>
-                 </div>
-                 <div class="form-group form-check">
-                     <label class="form-check-label">
-                         <input class="form-check-input" 
-                         asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
-                     </label>
-                 </div>
-             </div>
-           
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-    
+                <div class="form-group">
+                    <label asp-for="UnitsInstock" class="control-label"></label>
+                    <input asp-for="UnitsInstock" class="form-control" />
+                    <span asp-validation-for="UnitsInstock" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SubCategoryName" class="control-label"></label>
+                    @Html.DropDownListFor(m=>m.SubCategoryId,
+                          ViewBag.SubCategoriesList as SelectList,"Select Category", new {@class="form-control"})
+                </div>
+                <div class="form-group">
+                    
+                    <label asp-for="Images" class="control-label"></label>
+                    <input asp-for="Images" class="form-control" type="file" id="formFileMultiple" multiple>
+                    
+                    <span asp-validation-for="Images" class="text-danger"></span>
+                </div>
+               
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
 </div>
 
 <div>
-    <a asp-action="GetAllProducts">Back to List</a>
+    <a asp-action="Index">Back to List</a>
+</div>
 </div>
 
-</div>

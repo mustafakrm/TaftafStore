@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using WebAPPCoreMvcUI.Models.ProductViewModel;
 
 namespace WebAPPCoreMvcUI.Controllers
 {
@@ -21,7 +22,23 @@ namespace WebAPPCoreMvcUI.Controllers
             _hostEnvironment=hostEnvironment;
         }
        
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            var model = new ProductAddViewModel();
 
+            var subCategList = await _httpClient.
+               GetFromJsonAsync<List<SubCategory>>(url + "SubCategories/getAll");
+
+            ViewBag.SubCategoriesList = new SelectList(subCategList, "Id", "SubCategoryName");
+
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(ProductAddViewModel productAddViewModel)
+        {
+            return View();
+        }
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
         {
