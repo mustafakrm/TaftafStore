@@ -50,7 +50,8 @@ namespace DataAccess.Migrations
                         .HasColumnType("varchar(2000)");
 
                     b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");

@@ -34,6 +34,11 @@ namespace Business.Concrete
         public IResult Add(Product product)
         {
             product.AddedDate = DateTime.Now;
+            product.Id = Guid.NewGuid();
+            foreach (var item in product.Images)
+            {
+                item.ProductId = product.Id;
+            }
             IResult result = BusinessRules.Run(
                 CheckIfProductCountOfSubCategoryCorrect(product.SubCategoryId),
                 CheckIfProductNameExists(product.ProductName),
@@ -56,7 +61,7 @@ namespace Business.Concrete
         public IDataResult<List<Product>> GetAll()
         {
             
-            if (DateTime.Now.Hour == 23)
+            if (DateTime.Now.Hour == 17)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }

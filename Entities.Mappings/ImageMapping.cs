@@ -17,7 +17,7 @@ namespace Entities.Mappings
             builder.ToTable("Images");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.ImageName).HasMaxLength(2000).HasColumnType("varchar").IsRequired();
-            builder.Property(x => x.ImagePath).HasColumnType("nvarchar");
+            builder.Property(x => x.ImagePath).HasMaxLength(2000).HasColumnType("nvarchar");
 
             builder.HasOne(p => p.Product).WithMany(i => i.Images).HasForeignKey(p => p.ProductId);
 

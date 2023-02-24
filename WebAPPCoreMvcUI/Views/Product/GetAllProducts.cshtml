@@ -76,6 +76,7 @@
             <td>
                 @Html.ActionLink("Edit", "UpdateProduct", new { id=item.Id }) |
                 @Html.ActionLink("Delete", "DeleteProduct", new { id=item.Id })
+                @Html.ActionLink("Add Product Image", "Create","Image", new { id=item.Id })
             </td>
         </tr>
 }

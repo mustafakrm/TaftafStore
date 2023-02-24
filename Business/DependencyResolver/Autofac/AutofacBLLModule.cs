@@ -22,11 +22,13 @@ namespace Business.DependencyResolver.Autofac
             builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
             builder.RegisterType<SubCategoryManager>().As<ISubCategoryService>().SingleInstance();
             builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance();
+            builder.RegisterType<ImageManager>().As<IImageService>().SingleInstance();
 
 
             builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
             builder.RegisterType<EfSubCategoryDal>().As<ISubCategoryDal>().SingleInstance();
             builder.RegisterType<EfProductDal>().As<IProductDal>().SingleInstance();
+            builder.RegisterType<EfImageDal>().As<IImageDal>().SingleInstance();
 
 
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();

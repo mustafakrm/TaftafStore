@@ -17,6 +17,7 @@ namespace WebAPPCoreMvcUI.Models.ProductViewModel
         public bool IsDeleted { get; set; }
         public Guid SubCategoryId { get; set; }
         public string SubCategoryName { get; set; }
+        public Guid ProductId { get; set; }
         public ICollection<IFormFile> Files { get; set; }
         public List<Image> Images { get; set; }
 
