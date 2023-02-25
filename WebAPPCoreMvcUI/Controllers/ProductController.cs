@@ -102,6 +102,16 @@ namespace WebAPPCoreMvcUI.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> ProductDetail(Guid id)
+        {
+            var products = await _httpClient.GetFromJsonAsync<Product>(url + "Products/GetById?productId=" + id);
+            var images = await _httpClient.GetFromJsonAsync<List<Image>>(url + "Images/getByproductId?productId=" + id);
+            products.Images = images;
+            
+            return View(products);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> AddProduct()
         {
             var subCategList = await _httpClient.
