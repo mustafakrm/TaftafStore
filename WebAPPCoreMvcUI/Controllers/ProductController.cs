@@ -97,6 +97,16 @@ namespace WebAPPCoreMvcUI.Controllers
         public async Task<IActionResult> ProductsByCategoryId(Guid id)
         {
             var products = await _httpClient.GetFromJsonAsync<List<Product>>(url + "Products/GetByCategoryId?categoryId=" + id);
+            //for (int i = 0; i < products.Count; i++)
+            //{
+            //    var images = await _httpClient.GetFromJsonAsync<List<Image>>(url + "Images/getByproductId?productId=" + products[i].Id);
+            //}
+            foreach (var item in products)
+            {
+                var images = await _httpClient.GetFromJsonAsync<List<Image>>(url + "Images/getByproductId?productId=" + item.Id);
+                item.Images = images;
+            }
+            
 
             return View(products);
         }
@@ -104,11 +114,13 @@ namespace WebAPPCoreMvcUI.Controllers
         [HttpGet]
         public async Task<IActionResult> ProductDetail(Guid id)
         {
-            var products = await _httpClient.GetFromJsonAsync<Product>(url + "Products/GetById?productId=" + id);
+            var product = await _httpClient.GetFromJsonAsync<Product>(url + "Products/GetById?productId=" + id);
+            var subCategory = await _httpClient.GetFromJsonAsync<SubCategory>(url + "SubCategories/getById?subCategoryId=" + product.SubCategoryId);
             var images = await _httpClient.GetFromJsonAsync<List<Image>>(url + "Images/getByproductId?productId=" + id);
-            products.Images = images;
+            product.Images = images;
+            ViewBag.SubcategoryName = subCategory.SubCategoryName;
             
-            return View(products);
+            return View(product);
         }
 
         [HttpGet]

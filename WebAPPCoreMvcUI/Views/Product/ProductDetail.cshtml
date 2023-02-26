@@ -54,6 +54,7 @@
 							</div>
 							<div>
 								<h3 class="product-price">@Html.DisplayFor(model=>model.DiscountPrice) <del class="product-old-price">@Html.DisplayFor(model=>model.SalePrice)</del></h3>
+								<span class="product-available">@Html.DisplayNameFor(model=>model.UnitsInstock):</span>
 								<span class="product-available">@Html.DisplayFor(model=>model.UnitsInstock)</span>
 							</div>
 							<p>@Html.DisplayFor(model=>model.Description)</p>
@@ -92,7 +93,7 @@
 
 							<ul class="product-links">
 								<li>Category:</li>								
-								<li><a href="#">@Html.DisplayFor(model=>model.SubCategory.SubCategoryName)</a></li>
+								<li><a href="#">@ViewBag.SubCategoryName</a></li>
 							</ul>
 
 							<ul class="product-links">
