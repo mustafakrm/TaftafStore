@@ -24,7 +24,7 @@ namespace WebAPPCoreMvcUI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create(Guid id)
+        public async Task<IActionResult> AddProductImages(Guid id)
         {
             
             var product = await _httpClient.GetFromJsonAsync<Product>(url + "Products/getById?productId=" + id);
@@ -35,7 +35,7 @@ namespace WebAPPCoreMvcUI.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(ProductAddViewModel productAddViewModel)
+        public async Task<IActionResult> AddProductImages(ProductAddViewModel productAddViewModel)
         {
 
             if (ModelState.IsValid)

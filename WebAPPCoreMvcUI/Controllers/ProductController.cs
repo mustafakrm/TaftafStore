@@ -97,10 +97,7 @@ namespace WebAPPCoreMvcUI.Controllers
         public async Task<IActionResult> ProductsByCategoryId(Guid id)
         {
             var products = await _httpClient.GetFromJsonAsync<List<Product>>(url + "Products/GetByCategoryId?categoryId=" + id);
-            //for (int i = 0; i < products.Count; i++)
-            //{
-            //    var images = await _httpClient.GetFromJsonAsync<List<Image>>(url + "Images/getByproductId?productId=" + products[i].Id);
-            //}
+            
             foreach (var item in products)
             {
                 var images = await _httpClient.GetFromJsonAsync<List<Image>>(url + "Images/getByproductId?productId=" + item.Id);
