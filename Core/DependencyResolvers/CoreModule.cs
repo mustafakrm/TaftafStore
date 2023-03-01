@@ -12,7 +12,7 @@ namespace Core.DependencyResolvers
         public void Load(IServiceCollection serviceCollection)
         {
 
-            serviceCollection.AddMemoryCache();// .Net core'un kendi injection'ı
+            serviceCollection.AddMemoryCache();
             serviceCollection.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             serviceCollection.AddSingleton<ICacheManager, MemoryCacheManager>();
             serviceCollection.AddSingleton<Stopwatch>();

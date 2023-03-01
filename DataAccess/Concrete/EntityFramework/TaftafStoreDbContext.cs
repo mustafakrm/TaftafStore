@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.Entities.Concrete;
+using Entities.Concrete;
 using Entities.Mappings;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,6 +20,9 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> Images { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<OperationClaim> OperationClaims { get; set; }
+        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
