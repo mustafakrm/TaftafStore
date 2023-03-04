@@ -27,6 +27,7 @@ namespace WebAPPCoreMvcUI.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
+           
             var model = new ProductAddViewModel();
 
             var subCategList = await _httpClient.
@@ -39,6 +40,7 @@ namespace WebAPPCoreMvcUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductAddViewModel productAddViewModel)
         {
+            //Images kaydedilmiyord 
 
             if (ModelState.IsValid)
             {
