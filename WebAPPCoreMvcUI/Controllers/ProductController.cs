@@ -25,9 +25,9 @@ namespace WebAPPCoreMvcUI.Controllers
         }
        
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> AddProduct()
         {
-           
+           //Create New Product 
             var model = new ProductAddViewModel();
 
             var subCategList = await _httpClient.
@@ -38,9 +38,9 @@ namespace WebAPPCoreMvcUI.Controllers
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> Create(ProductAddViewModel productAddViewModel)
+        public async Task<IActionResult> AddProduct(ProductAddViewModel productAddViewModel)
         {
-            //Images kaydedilmiyord 
+            //Todo:Images kaydedilmiyor imageId ataması yapmadım muhtemel sebep
 
             if (ModelState.IsValid)
             {
@@ -120,27 +120,7 @@ namespace WebAPPCoreMvcUI.Controllers
             ViewBag.SubcategoryName = subCategory.SubCategoryName;
             
             return View(product);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> AddProduct()
-        {
-            var subCategList = await _httpClient.
-               GetFromJsonAsync<List<SubCategory>>(url + "SubCategories/getAll");
-
-            ViewBag.SubCategoriesList = new SelectList(subCategList, "Id", "SubCategoryName");
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> AddProduct(Product product)
-        {
-            HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Products/add", product);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("GetAllProducts", "Product");
-            }
-            return View();
-        }
+        }        
 
         [HttpGet]
         public async Task<IActionResult> UpdateProduct(Guid id)

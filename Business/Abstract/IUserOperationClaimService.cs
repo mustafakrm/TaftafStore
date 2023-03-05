@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface IUserService
+    public interface IUserOperationClaimService
     {
-        List<OperationClaim> GetClaims(User user);
-        IResult Add(User user);
-        User GetByMail(string email);
+        IResult Add(UserOperationClaim userOperationClaim);
     }
 }

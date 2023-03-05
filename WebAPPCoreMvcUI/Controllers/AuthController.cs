@@ -52,5 +52,11 @@ namespace WebAPPCoreMvcUI.Controllers
 
 
         }
+
+        public IActionResult LogOut()
+        {
+            Response.Cookies.Delete("Token");
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

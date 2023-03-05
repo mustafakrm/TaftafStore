@@ -25,6 +25,8 @@ namespace Business.DependencyResolver.Autofac
             builder.RegisterType<ImageManager>().As<IImageService>().SingleInstance();
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<OperationClaimManager>().As<IOperationClaimService>();
+            builder.RegisterType<UserOperationClaimManager>().As<IUserOperationClaimService>();
 
 
 
@@ -33,6 +35,8 @@ namespace Business.DependencyResolver.Autofac
             builder.RegisterType<EfProductDal>().As<IProductDal>().SingleInstance();
             builder.RegisterType<EfImageDal>().As<IImageDal>().SingleInstance();
             builder.RegisterType<EfUserDal>().As<IUserDal>();
+            builder.RegisterType<EfOperationClaimDal>().As<IOperationClaimDal>();
+            builder.RegisterType<EfUserOperationClaimDal>().As<IUserOperationClaimDal>();
 
 
 
