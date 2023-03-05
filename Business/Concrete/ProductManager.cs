@@ -28,17 +28,14 @@ namespace Business.Concrete
             _subCategoryService = subCategoryService;
         }
 
-        //[SecuredOperation("product.add,admin")]
+        //[SecuredOperation("product.add,Admin")]
         //[ValidationAspect(typeof(ProductValidator))]
         //[CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Product product)
         {
             product.AddedDate = DateTime.Now;
-            product.Id = Guid.NewGuid();
-            foreach (var item in product.Images)
-            {
-                item.ProductId = product.Id;
-            }
+            product.Id = Guid.NewGuid();            
+            
             IResult result = BusinessRules.Run(
                 CheckIfProductCountOfSubCategoryCorrect(product.SubCategoryId),
                 CheckIfProductNameExists(product.ProductName),

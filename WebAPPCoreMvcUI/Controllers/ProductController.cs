@@ -40,7 +40,7 @@ namespace WebAPPCoreMvcUI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProduct(ProductAddViewModel productAddViewModel)
         {
-            //Todo:Images kaydedilmiyor imageId ataması yapmadım muhtemel sebep
+            //Todo:Images kaydedilmiyor 
 
             if (ModelState.IsValid)
             {
@@ -60,16 +60,17 @@ namespace WebAPPCoreMvcUI.Controllers
                         IsDeleted = productAddViewModel.IsDeleted
                         
                     };
-                    string folder = "Images/ProductImages/";
-                    productToAdd.Images = new List<Image>();
-                    foreach (var item in productAddViewModel.Files)
-                    {
-                        productToAdd.Images.Add(new Image()
-                        {
-                            ImageName = item.FileName,
-                            ImagePath = await UploadImage(folder, item)
-                        });
-                    }
+                    //string folder = "Images/ProductImages/";
+                    //productToAdd.Images = new List<Image>();
+                    //foreach (var item in productAddViewModel.Files)
+                    //{
+                    //    productToAdd.Images.Add(new Image()
+                    //    {
+                    //        Id=Guid.NewGuid(),
+                    //        ImageName = item.FileName,
+                    //        ImagePath = await UploadImage(folder, item)
+                    //    });
+                    //}
 
                     HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Products/add", productToAdd);
                     if (responseMessage.IsSuccessStatusCode)
