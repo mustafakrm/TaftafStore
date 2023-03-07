@@ -28,7 +28,7 @@ namespace Business.Concrete
             _subCategoryService = subCategoryService;
         }
 
-        //[SecuredOperation("product.add,Admin")]
+        [SecuredOperation("product.add,admin")]
         //[ValidationAspect(typeof(ProductValidator))]
         //[CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Product product)
@@ -70,6 +70,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(item => item.SubCategoryId == id));
         }
 
+        [SecuredOperation("product.add,Admin")]
         public IDataResult<List<Product>> GetAllByCategoryId(Guid id)
         {
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(item => item.SubCategory.CategoryId == id));
