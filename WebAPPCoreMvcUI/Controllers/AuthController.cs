@@ -19,7 +19,7 @@ namespace WebAPPCoreMvcUI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Login()
         
         {
             return View();
@@ -32,9 +32,7 @@ namespace WebAPPCoreMvcUI.Controllers
                 var response = await _httpClient.PostAsJsonAsync(url + "Auths/Login", userForLoginDto);
                 if (response.IsSuccessStatusCode)
                 {
-                    var data = await response.Content.ReadFromJsonAsync<AccessToken>();
-
-                    //var data1= await response.Content.ReadFromJsonAsync<SuccessDataResult<AccessToken>>();
+                    var data = await response.Content.ReadFromJsonAsync<AccessToken>();                    
 
                     Response.Cookies.Append("Token", data.Token,
                         new CookieOptions
@@ -42,13 +40,20 @@ namespace WebAPPCoreMvcUI.Controllers
                             HttpOnly = true,
                             SameSite = SameSiteMode.Strict
                         });
+                    Response.Cookies.Append("exp_ti", data.Expiration.ToString(),
+                        new CookieOptions
+                        {
+                            HttpOnly = true,
+                            SameSite = SameSiteMode.Strict
+                        });
+                    
                     return RedirectToAction("Index", "Home");
                 }
                 var message= await response.Content.ReadAsStringAsync();
                 ViewBag.Message=message;
-                return View("Index");
+               
             }           
-            return View("Index");
+            return View("Login");
 
 
         }
@@ -56,6 +61,7 @@ namespace WebAPPCoreMvcUI.Controllers
         public IActionResult LogOut()
         {
             Response.Cookies.Delete("Token");
+            Response.Cookies.Delete("exp_ti");
             return RedirectToAction("Index", "Home");
         }
     }

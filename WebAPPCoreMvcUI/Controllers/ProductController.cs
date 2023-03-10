@@ -9,10 +9,12 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using WebAPPCoreMvcUI.CustomFilterAttribute;
 using WebAPPCoreMvcUI.Models.ProductViewModel;
 
 namespace WebAPPCoreMvcUI.Controllers
 {
+    [MyCustomAttribute]
     public class ProductController : Controller
     {
         private readonly HttpClient _httpClient;
@@ -29,9 +31,6 @@ namespace WebAPPCoreMvcUI.Controllers
         {
             //Create New Product 
             var model = new ProductAddViewModel();
-
-            var token = Request.Cookies.ContainsKey("Token");
-            _httpClient.DefaultRequestHeaders.Add("Token", "Bearer " + token);
             var subCategList = await _httpClient.
                GetFromJsonAsync<List<SubCategory>>(url + "SubCategories/getAll");
 
@@ -42,7 +41,6 @@ namespace WebAPPCoreMvcUI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProduct(ProductAddViewModel productAddViewModel)
         {
-            //Todo:Images kaydedilmiyor 
 
             if (ModelState.IsValid)
             {
@@ -62,18 +60,8 @@ namespace WebAPPCoreMvcUI.Controllers
                         IsDeleted = productAddViewModel.IsDeleted
 
                     };
-                    //string folder = "Images/ProductImages/";
-                    //productToAdd.Images = new List<Image>();
-                    //foreach (var item in productAddViewModel.Files)
-                    //{
-                    //    productToAdd.Images.Add(new Image()
-                    //    {
-                    //        Id=Guid.NewGuid(),
-                    //        ImageName = item.FileName,
-                    //        ImagePath = await UploadImage(folder, item)
-                    //    });
-                    //}
 
+                    AddRequestHeaderToken();
                     HttpResponseMessage responseMessage = await _httpClient.PostAsJsonAsync(url + "Products/add", productToAdd);
                     if (responseMessage.IsSuccessStatusCode)
                     {
@@ -84,16 +72,11 @@ namespace WebAPPCoreMvcUI.Controllers
             }
             return View();
         }
-        private async Task<string> UploadImage(string folderPath, IFormFile formFile)
-        {
-            folderPath += Guid.NewGuid().ToString() + "_" + formFile.FileName;
-            string serverFolder = Path.Combine(_hostEnvironment.WebRootPath, folderPath);
-            await formFile.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
-            return "/" + folderPath;
-        }
+        
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
         {
+            AddRequestHeaderToken();
             var products = await _httpClient.GetFromJsonAsync<List<Product>>(url + "Products/getAll");
             return View(products);
         }
@@ -101,6 +84,7 @@ namespace WebAPPCoreMvcUI.Controllers
         [HttpGet]
         public async Task<IActionResult> ProductsByCategoryId(Guid id)
         {
+            AddRequestHeaderToken();
             var products = await _httpClient.GetFromJsonAsync<List<Product>>(url + "Products/GetByCategoryId?categoryId=" + id);
 
             foreach (var item in products)
@@ -112,6 +96,7 @@ namespace WebAPPCoreMvcUI.Controllers
 
             return View(products);
         }
+       
 
         [HttpGet]
         public async Task<IActionResult> ProductDetail(Guid id)
@@ -128,20 +113,8 @@ namespace WebAPPCoreMvcUI.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateProduct(Guid id)
         {
-            var product = await _httpClient.GetFromJsonAsync<Product>(url + "Products/getById?productId=" + id);
-            Product productToUpdate = new Product()
-            {
-                Id = product.Id,
-                ProductName = product.ProductName,
-                Description = product.Description,
-                PurchasePrice = product.PurchasePrice,
-                SalePrice = product.SalePrice,
-                DiscountPrice = product.DiscountPrice,
-                AddedDate = product.AddedDate,
-                UnitsInstock = product.UnitsInstock,
-                SubCategoryId = product.SubCategoryId,
-                IsDeleted = product.IsDeleted
-            };
+            var productToUpdate = await _httpClient.GetFromJsonAsync<Product>(url + "Products/getById?productId=" + id);
+            
             var subCategList = await _httpClient.
               GetFromJsonAsync<List<SubCategory>>(url + "SubCategories/getAll");
 
@@ -163,21 +136,8 @@ namespace WebAPPCoreMvcUI.Controllers
         [HttpGet]
         public async Task<IActionResult> DeleteProduct(Guid id)
         {
-            var product = await _httpClient.GetFromJsonAsync<Product>(url + "Products/getById?productId=" + id);
-
-            Product productToDelete = new Product()
-            {
-                Id = product.Id,
-                ProductName = product.ProductName,
-                Description = product.Description,
-                PurchasePrice = product.PurchasePrice,
-                SalePrice = product.SalePrice,
-                DiscountPrice = product.DiscountPrice,
-                AddedDate = product.AddedDate,
-                UnitsInstock = product.UnitsInstock,
-                SubCategoryId = product.SubCategoryId,
-                IsDeleted = product.IsDeleted
-            };
+            var productToDelete = await _httpClient.GetFromJsonAsync<Product>(url + "Products/getById?productId=" + id);
+            
             return View(productToDelete);
         }
         [HttpPost]
@@ -189,6 +149,20 @@ namespace WebAPPCoreMvcUI.Controllers
                 return RedirectToAction("GetAllProducts", "Product");
             }
             return View();
+        }
+
+        public void AddRequestHeaderToken()
+        {
+            var token = Request.Cookies["Token"];
+            _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+        }
+
+        private async Task<string> UploadImage(string folderPath, IFormFile formFile)
+        {
+            folderPath += Guid.NewGuid().ToString() + "_" + formFile.FileName;
+            string serverFolder = Path.Combine(_hostEnvironment.WebRootPath, folderPath);
+            await formFile.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+            return "/" + folderPath;
         }
     }
 }
