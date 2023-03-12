@@ -30,6 +30,30 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        
+        [HttpGet("getAllProductsWithImages")]
+        public IActionResult GetAllProductsWithImages()
+        {
+
+            var result = _productService.GetAllProductsWithImages();
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("GetProductDetails")]
+        public IActionResult GetProductDetails()
+        {
+            
+            var result = _productService.GetProductDetails();
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result);
+        }
+
         [HttpGet("getById")]
         public IActionResult GetById(Guid productId)
         {

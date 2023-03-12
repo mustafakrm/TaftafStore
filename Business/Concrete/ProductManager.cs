@@ -140,8 +140,11 @@ namespace Business.Concrete
 
             }
             return new SuccessResult();
-        }
+        }       
 
-       
+        public IDataResult<List<Product>> GetAllProductsWithImages()
+        {
+            return new SuccessDataResult<List<Product>>(_productDal.GetAllProductsWithImages());
+        }
     }
 }

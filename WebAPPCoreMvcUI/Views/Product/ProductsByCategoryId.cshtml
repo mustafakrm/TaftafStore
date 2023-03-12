@@ -188,13 +188,13 @@
                             <div class="product">
                                 <div class="product-img">
                                     @Html.ActionLink("", "ProductsById", new { id=item.Id })
-                                    @if (item.Images.FirstOrDefault()!=null)
-                                   {
+                                    @if (item.Images.FirstOrDefault() != null)
+                                    {
                                         <img src="@item.Images.FirstOrDefault().ImagePath" alt="">
                                     }
                                     else
                                     {
-                                         <img src="~/template/img/TaftafStore.png" alt="">
+                                        <img src="~/template/img/TaftafStore.png" alt="">
                                     }
                                     @*<img src="~/template/img/product01.png" alt="">*@
                                     <div class="product-label">
@@ -230,12 +230,10 @@
                         @*<div class="clearfix visible-lg visible-md visible-sm visible-xs"></div>*@
                     }
                     <!-- /product -->
-                    
+
                     <div class="clearfix visible-lg visible-md visible-sm visible-xs"></div>
-                    
+
                     <!-- product -->
-                    
-                    
                     <!-- /store products -->
                     <!-- store bottom filter -->
                     <div class="store-filter clearfix">

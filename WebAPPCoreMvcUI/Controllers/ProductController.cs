@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -72,7 +73,7 @@ namespace WebAPPCoreMvcUI.Controllers
             }
             return View();
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
         {
@@ -85,38 +86,28 @@ namespace WebAPPCoreMvcUI.Controllers
         public async Task<IActionResult> ProductsByCategoryId(Guid id)
         {
             AddRequestHeaderToken();
-            var products = await _httpClient.GetFromJsonAsync<List<Product>>(url + "Products/GetByCategoryId?categoryId=" + id);
 
-            foreach (var item in products)
-            {
-                var images = await _httpClient.GetFromJsonAsync<List<Image>>(url + "Images/getByproductId?productId=" + item.Id);
-                item.Images = images;
-            }
+            var productList = await _httpClient.GetFromJsonAsync<List<Product>>(url + "Products/getAllProductsWithImages");
+            var prodcts = productList.Where(item => item.SubCategory.CategoryId == id).ToList();
 
-
-            return View(products);
+            return View(prodcts);
         }
-       
+
 
         [HttpGet]
         public async Task<IActionResult> ProductDetail(Guid id)
         {
-            var product = await _httpClient.GetFromJsonAsync<Product>(url + "Products/GetById?productId=" + id);
-            var subCategory = await _httpClient.GetFromJsonAsync<SubCategory>(url + "SubCategories/getById?subCategoryId=" + product.SubCategoryId);
-            var images = await _httpClient.GetFromJsonAsync<List<Image>>(url + "Images/getByproductId?productId=" + id);
-            product.Images = images;
-            ViewBag.SubcategoryName = subCategory.SubCategoryName;
-
-            return View(product);
+            var productList = await _httpClient.GetFromJsonAsync<List<Product>>(url + "Products/getAllProductsWithImages");
+            var prodct = productList.Where(item => item.Id == id).FirstOrDefault();
+            return View(prodct);
         }
 
         [HttpGet]
         public async Task<IActionResult> UpdateProduct(Guid id)
         {
             var productToUpdate = await _httpClient.GetFromJsonAsync<Product>(url + "Products/getById?productId=" + id);
-            
-            var subCategList = await _httpClient.
-              GetFromJsonAsync<List<SubCategory>>(url + "SubCategories/getAll");
+
+            var subCategList = await _httpClient.GetFromJsonAsync<List<SubCategory>>(url + "SubCategories/getAll");
 
             ViewBag.SubCategoriesList = new SelectList(subCategList, "Id", "SubCategoryName");
             return View(productToUpdate);
@@ -137,7 +128,7 @@ namespace WebAPPCoreMvcUI.Controllers
         public async Task<IActionResult> DeleteProduct(Guid id)
         {
             var productToDelete = await _httpClient.GetFromJsonAsync<Product>(url + "Products/getById?productId=" + id);
-            
+
             return View(productToDelete);
         }
         [HttpPost]
